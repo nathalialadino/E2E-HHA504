@@ -6,12 +6,12 @@ This is a temporary script file.
 """
 
 
-###  Connecting to the Sever 
-## Enter the following to connect: Using Server name, IP Address, and Password
+#  Connecting to the Sever 
+####### Enter the following to connect: Using Server name, IP Address, and Password
 
  ssh Nathalia@13.68.191.81
-# Enter Password: (on word doc)
-# Enter the following commands after each loads...
+######## Enter Password: (on word doc)
+######## Enter the following commands after each loads...
   sudo apt-get update
   sudo apt install mysql-client mysql-server
   sudo mysql
