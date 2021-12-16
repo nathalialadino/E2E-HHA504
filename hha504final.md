@@ -10,7 +10,7 @@ This is a temporary script file.
 ## Enter the following to connect: Using Server name, IP Address, and Password
 
  ssh Nathalia@13.68.191.81
-# Enter Password: Cookievaleria29!
+# Enter Password: (on word doc)
 # Enter the following commands after each loads...
   sudo apt-get update
   sudo apt install mysql-client mysql-server
