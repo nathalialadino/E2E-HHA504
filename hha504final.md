@@ -7,16 +7,16 @@ This is a temporary script file.
 
 
 #  Connecting to the Sever 
-####### Enter the following to connect: Using Server name, IP Address, and Password
+#### Enter the following to connect: Using Server name, IP Address, and Password
 
  ssh Nathalia@13.68.191.81
-######## Enter Password: (on word doc)
-######## Enter the following commands after each loads...
+###### Enter Password: (on word doc)
+###### Enter the following commands after each loads...
   sudo apt-get update
   sudo apt install mysql-client mysql-server
   sudo mysql
   
-# Creating a mysql user and its password
+#### Creating a mysql user and its password
 
 mysql> CREATE USER 'dba'@'%'IDENTIFIED BY'ahi2021';
 
@@ -26,17 +26,17 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'dba'@'%'WITH GRANT OPTION;
 
 mysql> exit()
 
-# Using the user and password made, connect to mysql db
+#### Using the user and password made, connect to mysql db
 
 Nathalia@AHIserver:~$ my sql -u dba -p
 Enter password: ahi2021
 
-# View databases within the mysql instance
+#### View databases within the mysql instance
 
 mysql> show databases;
 mysql> CREATE DATABASE e2e;
 
-## Loading CSV data and Creating Table on Spyder - Python Script
+#### Loading CSV data and Creating Table on Spyder - Python Script
 
 from sqlalchemy import create_engine
 import sqlalchemy
@@ -54,61 +54,64 @@ engine = create_engine(connection_string)
 print (engine.table_names())
 
 
-# connection refused - update mysql configuration settings with following commands:
+###### connection refused - update mysql configuration settings with following commands:
 Nathalia@AHIserver:~$ sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
-# edit bind-address to 0.0.0.0
-# restart
+###### edit bind-address to 0.0.0.0
+###### restart
 Nathalia@AHIserver:~$ sudo service mysql restart 
 
-# Try connecting again
-# Load csv file
+###### Try connecting again
+##### Load csv file
 
 csvfile = pd.read_csv(r'C:/Users/natha/OneDrive/Desktop/fludata/H1N1_Flu_Vaccines.csv')
 csvfile.to_sql('H1N1_Flu_Vaccines', con=engine, if_exists='append')
 
 
-# Set up new connection on mysql workbench 
-# connection string: dba@13.68.191.81:3306
+#### Set up new connection on mysql workbench 
+##### connection string: dba@13.68.191.81:3306
 
-# Rename table within mysql workbench
+#### Rename table within mysql workbench
 ALTER TABLE 'e2e'.'H1N1_Flu_Vaccinces'
 RENAME TO 'e2e'.'H1N1';
 
-## Go back to mysql
-# View databases
+###### Go back to mysql
+##### View databases
 mysql> show databases;
-# Use e2e db
+##### Use e2e db
 mysql> use e2e;
-# Database changed, view tables within db (should see H1N1 table)
+##### Database changed, view tables within db (should see H1N1 table)
 mysql> show tables;
 
-## Creating a dump (.sql) file
+### Creating a dump (.sql) file
 mysql> exit
 Nathalia@AHIserver:~$ mysqldump
-# Above command ensures that we have already properly installed mysqldump through the sql server
+
+Above command ensures that we have already properly installed mysqldump through the sql server
 
 # Create dump file
 Nathalia@AHIserver:~$ mysqldump -u dba -p e2e H1N1 > backup_H1N1.sql
 enter password: ahi2021
 Nathalia@AHIserver:~$ ls -1
-#Above command shows that the backup file has been created
+
+Above command shows that the backup file has been created
+
 Nathalia@AHIserver:~$ nano backup_H1N1.sql
 
-# Restore
+### Restore
 Nathalia@AHIserver:~$ mysql -u dba -p e2e < backup_H1N1.sql
 
-# locate dump file path
+### locate dump file path
 
 Nathalia@AHIserver:~$ sudo apt install mlocate
 Nathalia@AHIserver:~$ locate backup_H1N1.sql
 /home/Nathalia/backup_H1N1.sql
 
-## Using scp command to move the file into local computer
+# Using scp command to move the file into local computer
 
 scp Nathalia@13.68.191.81:/home/Nathalia/backup_H1N1.sql /home/Nathalia/Desktop
 
 
-## Create trigger on mysql workbench
+# Create trigger on mysql workbench
 
 USE e2e
 
